@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: Rscript -e 'install.packages(c("tidyverse","zoo","usdata"))'
       - name: Scrape the data
-        run: Rscript Circuit Breaker Code.R
+        run: Rscript Circuit_Breaker_Code.R
       - name: Commit results
         run: |
           git add -A
