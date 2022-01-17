@@ -1,0 +1,25 @@
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 1 * *'
+
+name: Circuit Breaker Workflow
+
+jobs:
+  render:
+    name: Circuit Breaker Workflow
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v1
+      - name: Install dependencies
+        run: Rscript -e 'install.packages(c("tidyverse","zoo","usdata"))'
+      - name: Scrape the data
+        run: Rscript Circuit Breaker Code.R
+      - name: Commit results
+        run: |
+          git add -A
+          timestamp=$(date -u)
+          git commit -m "Latest data: ${timestamp}" || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
