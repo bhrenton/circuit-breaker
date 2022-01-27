@@ -344,7 +344,10 @@ state_county_final_estimates<-left_join(cases_hospitalizations_baseline_icu2,cou
 state_daily <-state_county_final_estimates %>% 
   filter(date==max(date)) %>% 
   select(-date)
+countytimeseries_selected<-final_county_ts %>% 
+  select(Date,FIPS, County, Category,`Percent Occupied (Nowcast)`,`Percent Occupied (last HHS update)`)
 write.csv(county_daily, "circuit_breaker_county_daily.csv", row.names = F, na = "")
 write.csv(state_daily, "circuit_breaker_state_daily.csv", row.names = F, na = "")
 write.csv(final_county_ts, "circuit_breaker_county_timeseries.csv", row.names = F, na = "")
 write.csv(state_county_final_estimates, "circuit_breaker_state_timeseries.csv", row.names = F, na = "")
+write.csv(countytimeseries_selected, "circuit_breaker_county_timeseries_selected.csv", row.names = F, na = "")
