@@ -307,7 +307,7 @@ state_county_final_estimates<-left_join(cases_hospitalizations_baseline_icu2,cou
   mutate(circuit_increase_hospital1=circuit_increase_hospital7/7) %>% 
   mutate(circuit_newhospital7=circuit_increase_hospital7+new_hospitalizations_7) %>% 
   mutate(circuit_newhospital1=circuit_newhospital7/7) %>% 
-  mutate(circuit_increase_icucase7=openbedsnowcast/(ihr*icuratio)) %>% 
+  mutate(circuit_increase_icucase7=openicubeds/(ihr*icuratio)) %>% 
   mutate(circuit_icunewcase7=circuit_increase_icucase7+baselinecases) %>% 
   mutate(circuit_icunewcase1=circuit_icunewcase7/7) %>% 
   select(date,state,circuit_newcase7,circuit_newcase1,circuit_newhospital7,circuit_newhospital1,totalbedscounty,open_beds,pctopen,openbedsnowcast,totalicubeds,openicubeds,avgnewcases,new_case,circuit_icunewcase1,casethresholdpct) %>% 
