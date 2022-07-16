@@ -177,7 +177,7 @@ countycases_pivot <- pivot_longer(data = countycases, cols = -c(1),
   group_by(FIPS) %>% 
   mutate(newcases=Cases-lag(Cases)) %>% 
   select(Date,FIPS,newcases)
-hospital_facility <- read_csv("https://healthdata.gov/resource/anag-cw7u.csv?$limit=500000") %>% 
+hospital_facility <- read_csv("https://healthdata.gov/resource/anag-cw7u.csv?$limit=600000") %>% 
   select(hospital_pk,collection_week,fips_code,state,inpatient_beds_7_day_avg,inpatient_beds_used_7_day_avg) %>% 
   mutate(collection_week = as.Date(collection_week, format = "%m/%d/%y")) %>% 
   filter(collection_week>=as.Date("2021-10-22")) %>% 
