@@ -286,7 +286,8 @@ county_ts2<-final_county_ts %>%
   mutate(categorysum=rollsumr(categorykey,k=7,fill=NA)) %>% 
   mutate(Warning=ifelse(categorysum>=1,"This county was either at capacity or forecasted to exceed capacity in at least 1 of the last 7 days.",NA)) %>% 
   mutate(Category = ifelse(`Percent Occupied (Nowcast)`>=100,"At Capacity",ifelse(`At Threshold?`=="Yes"&`Percent Occupied (Nowcast)`<100,"Forecasted to Exceed Capacity",ifelse(`New Cases Yesterday`>=`Average daily cases to reach circuit breaker` & `At Threshold?`=="No","Unsustainable",ifelse(!is.na(Warning)&Category=="Has Capacity","Continued Risk","Has Capacity"))))) %>% 
-  select(-categorykey,-categorysum)
+  select(-categorykey,-categorysum) %>% 
+  filter(Date>=as.Date("2022-01-01"))
 county_daily <-county_ts2 %>% 
   filter(Date==max(Date)) %>% 
   select(-Date)
@@ -348,6 +349,6 @@ countytimeseries_selected<-final_county_ts %>%
   select(Date,FIPS, County, Category,`Percent Occupied (Nowcast)`,`Percent Occupied (last HHS update)`)
 write.csv(county_daily, "circuit_breaker_county_daily.csv", row.names = F, na = "")
 write.csv(state_daily, "circuit_breaker_state_daily.csv", row.names = F, na = "")
-write.csv(final_county_ts, "circuit_breaker_county_timeseries.csv", row.names = F, na = "")
+write.csv(county_ts2, "circuit_breaker_county_timeseries.csv", row.names = F, na = "")
 write.csv(state_county_final_estimates, "circuit_breaker_state_timeseries.csv", row.names = F, na = "")
 write.csv(countytimeseries_selected, "circuit_breaker_county_timeseries_selected.csv", row.names = F, na = "")
