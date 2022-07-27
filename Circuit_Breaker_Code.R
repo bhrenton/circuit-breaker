@@ -287,7 +287,7 @@ county_ts2<-final_county_ts %>%
   mutate(Warning=ifelse(categorysum>=1,"This county was either at capacity or forecasted to exceed capacity in at least 1 of the last 7 days.",NA)) %>% 
   mutate(Category = ifelse(`Percent Occupied (Nowcast)`>=100,"At Capacity",ifelse(`At Threshold?`=="Yes"&`Percent Occupied (Nowcast)`<100,"Forecasted to Exceed Capacity",ifelse(`New Cases Yesterday`>=`Average daily cases to reach circuit breaker` & `At Threshold?`=="No","Unsustainable",ifelse(!is.na(Warning)&Category=="Has Capacity","Continued Risk","Has Capacity"))))) %>% 
   select(-categorykey,-categorysum) %>% 
-  filter(Date>=as.Date("2022-01-01"))
+  filter(Date>=as.Date("2022-02-01"))
 county_daily <-county_ts2 %>% 
   filter(Date==max(Date)) %>% 
   select(-Date)
